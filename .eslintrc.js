@@ -34,7 +34,16 @@ module.exports = {
         node: true
       }
     },
-
+    {
+      files: ['app/**/*.js'],
+      plugins: [
+        'disable-features',
+      ],
+      rules: {
+        'disable-features/disable-async-await': 'error',
+        'disable-features/disable-generator-functions': 'error',
+      }
+    },
     // test files
     {
       files: ['tests/**/*.js'],
