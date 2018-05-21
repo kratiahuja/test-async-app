@@ -1,0 +1,8 @@
+{{yield}}
+
+<button {{action "onClickButton"}} class="bar-button">Click me!</button>
+
+{{#if showButtonToggle}}
+  <p class="text-data">{{buttonData.first-name}} {{buttonData.last-name}}</p>
+  <p class="toggle-text-contents">Button was pressed</p>
+{{/if}}
