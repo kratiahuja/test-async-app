@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { settled, visit, currentURL, click, pauseTest, find } from '@ember/test-helpers';
+import { settled, visit, currentURL, click, pauseTest, find, waitFor } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
@@ -8,13 +8,15 @@ module('basic acceptance test', function(hooks) {
   setupMirage(hooks);
 
   test('can visit /foo', async function(assert) {
+    this.server.createList('author', 1);
+
     await visit('/foo');
     assert.equal(currentURL(), '/foo');
   });
 
   test('clicking button', async function(assert) {
     this.server.createList('author', 1);
-  
+
     await visit('/foo');
     assert.equal(currentURL(), '/foo');
 
@@ -24,9 +26,15 @@ module('basic acceptance test', function(hooks) {
 
     assert.equal(find('p.text-data').innerHTML, 'Krati AA');
 
-    /* Alternatively instead of using settled() you can do: 
-    const contentEl = await waitFor('p.toggle-text-contents');
-    assert.equal(contentEl.innerHTML, 'Button was pressed');
-    */
+  });
+
+  test('load lazy data from component', async function(assert) {
+    this.server.createList('author', 1);
+
+    await visit('/foo');
+    assert.equal(currentURL(), '/foo');
+
+    const componentDataEl = await waitFor('p.load-data');
+    assert.equal(componentDataEl.innerHTML, 'Krati AA');
   });
 });

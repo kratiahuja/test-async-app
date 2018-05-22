@@ -1,5 +1,11 @@
 {{yield}}
 
+{{#if loadingComponent}}
+  <p>Loading data...</p>
+{{else}}
+  <p class="load-data">{{componentData.first-name}} {{componentData.last-name}}</p>
+{{/if}}
+
 <button {{action "onClickButton"}} class="bar-button">Click me!</button>
 
 {{#if showButtonToggle}}
