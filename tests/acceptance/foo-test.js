@@ -17,10 +17,8 @@ module('basic acceptance test', function(hooks) {
   
     await visit('/foo');
     assert.equal(currentURL(), '/foo');
-  
-    await click('button.bar-button');
 
-    await settled();
+    await click('button.bar-button');
 
     assert.equal(find('p.toggle-text-contents').innerHTML, 'Button was pressed');
 
